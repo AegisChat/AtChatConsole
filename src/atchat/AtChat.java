@@ -18,8 +18,6 @@ public class AtChat {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        User_Text_Message m = new User_Text_Message(null, null);
-        m.displayTime();
         try{
             File friends_list_file = new File("friends_list.txt");
             File blocked_list_file = new File("blocked_list.txt");
@@ -34,11 +32,11 @@ public class AtChat {
                 System.out.println("Blocked list file already exit");
             }
         User n = User.getInstance();
+            User_Text_Message m = new User_Text_Message("Hello", n.getID());
+            m.displayTime();
         
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 }
-
-//mendel's edit
