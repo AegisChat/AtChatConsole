@@ -8,7 +8,6 @@ package atchat;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.charset.Charset;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -28,7 +27,6 @@ public class User {
     private ArrayList<String> tags;
     private ArrayList<Friend> contact_list;
     private ArrayList<ID> blocked_list;
-    private Charset charset;
     private File friends_list_file;
     private File blocked_list_file;
     private FileReader friends_list_file_reader;
@@ -43,16 +41,16 @@ public class User {
         tags = new ArrayList<String>();
         contact_list = new ArrayList<Friend>();
         blocked_list = new ArrayList<ID>();
-        charset = Charset.forName("US-ASCII");
         friends_list_file = new File("friends_list.txt");
         blocked_list_file = new File("blocked_list.txt");
         try {
             friends_list_file_reader = new FileReader(friends_list_file);
+            blocked_list_file_reader = new FileReader(blocked_list_file);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         retrieveFriendsList();
-        //retrieveBlockedList();
+        retrieveBlockedList();
     }
 
     public static User getInstance() {
@@ -84,11 +82,11 @@ public class User {
     }
     
     private void retrieveBlockedList(){
-        BufferedReader br  = new BufferedReader(blocked_list_file_reader);
+        BufferedReader br = new BufferedReader(blocked_list_file_reader);
             String line = null;
             try {
                 while ((line = br.readLine())!=null) {
-                    blocked_list.add(new ID(Integer.parseInt(line)));
+                    blocked_list.add(new ID(spliceID(line)));
                 }
                 System.out.println(blocked_list.toString());
                 br.close();
@@ -105,7 +103,7 @@ public class User {
     
     private int spliceID(String friendLine){
         String[] id = friendLine.split("@");
-        System.out.println("Friend ID: "+ Integer.parseInt(id[1]));
+        System.out.println("ID: "+ Integer.parseInt(id[1]));
         return Integer.parseInt(id[1]);
     }
     
