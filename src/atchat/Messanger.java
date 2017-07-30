@@ -49,8 +49,8 @@ public class Messanger extends Thread{
         }
     }
     
-    public void sendMessage(String command, String message){
+    public void sendMessage(String message){
         ChatProtocol chat = new ChatProtocol();
-        write.println(chat.ProccessOutput(command, message));
+        write.println(chat.ProccessOutput(message));
     }
 }

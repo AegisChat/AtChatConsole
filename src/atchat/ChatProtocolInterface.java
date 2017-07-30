@@ -11,5 +11,6 @@ package atchat;
  */
 public interface ChatProtocolInterface {
     public abstract void ProccessInput(String message);
-    public abstract String ProccessOutput(String command, String message);   
+    public abstract String ProccessOutput(String message); 
+    public void sendFriendRequestProtocol(ID id);
 }
