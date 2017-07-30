@@ -34,9 +34,10 @@ public class AtChat {
         User n = User.getInstance();
             User_Text_Message m = new User_Text_Message("Hello", n.getID());
             m.displayTime();
-        
+        n.addToBlockedList(new ID(123));
         }catch(IOException e){
             e.printStackTrace();
         }
+        
     }
 }

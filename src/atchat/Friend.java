@@ -19,6 +19,7 @@ public class Friend implements Cloneable{
     private int location;
     private ArrayList<String> tags;
     private ArrayList<Conversation> conversation;
+    private int gender;
 
     public Friend(String friend_name, ID friend_id, int friend_clearance_level, ArrayList<String> tags){
         name = friend_name;
@@ -33,7 +34,12 @@ public class Friend implements Cloneable{
     public void setID(int ID) {
         this.ID = new ID(ID);
     }
-
+    public void setGender(){
+    this.gender=gender;
+    }
+    public int getGender(){
+    return gender;
+    }
     public int getClearance_level() {
         return clearance_level;
     }
@@ -78,5 +84,9 @@ public class Friend implements Cloneable{
         Friend friend = new Friend(getName(), getID(), clearance_level, getTags());
         return friend;
     }
-    
+    public String toString(){//Convert friend bio into string
+    String contactBio = null;
+    contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"@ "+"!"+getTags()+"!";
+    return contactBio;        
+    }
 }
