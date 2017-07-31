@@ -129,7 +129,7 @@ public class User {
     public boolean checkFriendsList(ID id){
         boolean friendFound = false;
         for(Friend friend : contact_list){
-            if(friend.getID().equals(id.getIDNumber()));
+            if(friend.getID().getIDNumber() == id.getIDNumber());
             friendFound = true;
             break;
         }
@@ -160,52 +160,55 @@ public class User {
             System.out.println("Friend Request sent");
     }
     
-    public void addToBlockedList(ID id) throws FileNotFoundException{
+    public void addToBlockedList(ID id){
         if(checkFriendsList(id)){
-            blocked_list.add(id);//If friend doesn't exist within friends list then we just block the ID
-        }
-        else{
-           contact_list.remove(id);//If the friend does exist then it removes from from contact list as well as blocks them.
+           contact_list.remove(this.searchFriendsList(id)); //WRONG //If the friend does exist then it removes from from contact list as well as blocks them.
            blocked_list.add(id);
+           System.out.println(" in friends list");
            updateContactList();//update the contact list file
         }
-           updateBlockedList();//update the blocked list
-    }
-    public void updateBlockedList(){ //method for updating the blocked list   
-     String blockedString = null;
-
-    for (atchat.ID friend : blocked_list)
-    blockedString = blockedString + friend.toString() + "/n";
-    
-    PrintWriter printWriter = null;
-        try {
-            printWriter = new PrintWriter("friends_list.txt");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        else{
+            blocked_list.add(id);//If friend doesn't exist within friends list then we just block the ID
+            System.out.println("not in friends list");
         }
-    printWriter.println(blockedString);
-    printWriter.flush();
-    printWriter.close();
+           //updateBlockedList();//update the blocked list
+    }
+    
+    public void updateBlockedList(){ //method for updating the blocked list   
+        String blockedString = "";
+
+        for (atchat.ID friend : blocked_list)
+        blockedString = blockedString + friend.toString() + System.lineSeparator();
+
+        PrintWriter printWriter = null;
+            try {
+                printWriter = new PrintWriter("friends_list.txt");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        printWriter.println(blockedString);
+        printWriter.flush();
+        printWriter.close();
     }
   
     public void updateContactList(){//method for updating the contact list
-     String contactString = null;
+        System.out.println("updateContactList started");
+        String contactString = "";
 
-    for (Friend friend : contact_list)
-    contactString = contactString + friend.toString() + "/n";
-    
-    PrintWriter printWriter = null;
-        try {
-            printWriter = new PrintWriter("friends_list.txt");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    printWriter.println(contactString);  
-    printWriter.flush();
-    printWriter.close();
-    }
-    
-    
+        for (Friend friend : contact_list)
+            contactString = contactString + friend.toString() + System.lineSeparator();
+
+        System.out.println(contactString);
+        PrintWriter printWriter = null;
+            try {
+                printWriter = new PrintWriter("friends_list.txt");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        printWriter.println(contactString);  
+        printWriter.flush();
+        printWriter.close();
+    } 
     
     public void removeFromFriendsList(ID id){
         Friend temp; 
@@ -221,7 +224,7 @@ public class User {
         Friend foundFriend=null;
             for(Friend f : contact_list){
                 if(f.getID().equals(id))
-                    foundFriend = f.clone();
+                    foundFriend = f;
             }
         return foundFriend;
     }

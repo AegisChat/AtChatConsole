@@ -84,9 +84,11 @@ public class Friend implements Cloneable{
         Friend friend = new Friend(getName(), getID(), clearance_level, getTags());
         return friend;
     }
+    
+    @Override
     public String toString(){//Convert friend bio into string
-    String contactBio = null;
-    contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"@ "+"!"+getTags()+"!";
-    return contactBio;        
+        String contactBio = null;
+        contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"% "+"!"+getTags()+"!";
+        return contactBio;        
     }
 }

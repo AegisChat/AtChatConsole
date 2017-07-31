@@ -11,10 +11,8 @@ package atchat;
  */
 public class ChatProtocol implements ChatProtocolInterface{
     
-    public String ProccessOutput(String message){
+    public String ProccessOutput(String message){//get rid of this maybe
         String output = null;
-        String[] spliceCommandCode = message.split(" ");
-        String commandCode = spliceCommandCode[0];
         switch(message){
             case "/000/": 
                 break; //message person
@@ -35,7 +33,9 @@ public class ChatProtocol implements ChatProtocolInterface{
     
     @Override
     public void ProccessInput(String message){
-        switch(message){
+        String[] spliceCommandCode = message.split(" ");
+        String commandCode = spliceCommandCode[0];
+        switch(commandCode){
             case "/000/": 
             break; //message person
             case "/001/": 
@@ -52,9 +52,9 @@ public class ChatProtocol implements ChatProtocolInterface{
     }
     
     @Override
-    public void sendFriendRequestProtocol(ID id){
+    public String sendFriendRequestProtocol(ID id){
         User user = User.getInstance();
-        ProccessOutput("/003/ " + user.getID()+ " " +String.valueOf(id.getIDNumber()));
         System.out.println("/003/ " + user.getID().getIDNumber()+ " " +String.valueOf(id.getIDNumber()));
+        return "/003/ " + user.getID()+ " " +String.valueOf(id.getIDNumber());
     }
 }
