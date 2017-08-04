@@ -25,7 +25,7 @@ public class Friend implements Cloneable{
         name = friend_name;
         ID = friend_id;
         clearance_level = friend_clearance_level;
-        this.tags = tags;
+        this.tags = (ArrayList<String>)tags.clone();
     }
     public ID getID() {
         return ID.clone();
@@ -85,10 +85,20 @@ public class Friend implements Cloneable{
         return friend;
     }
     
+    public String tagsToString(){
+        String ans = "";
+        for(String tag: tags){
+            ans = ans + tag + " ";
+        }
+        ans = ans.trim();
+        System.out.println("tags: "+ ans);
+        return ans;
+    }
+    
     @Override
     public String toString(){//Convert friend bio into string
         String contactBio = null;
-        contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"% "+"!"+getTags()+"!";
+        contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"% "+"!"+tagsToString()+"!";
         return contactBio;        
     }
 }

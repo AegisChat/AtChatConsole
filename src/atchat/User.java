@@ -61,7 +61,7 @@ public class User {
         return instance;
     }
     
-    private void retrieveFriendsList(){
+    private void retrieveFriendsList(){ 
         BufferedReader br  = new BufferedReader(friends_list_file_reader);
         String line = null;
         String friend_name = null;
@@ -70,11 +70,14 @@ public class User {
         ArrayList<String> tags;
         try {
             while ((line = br.readLine())!=null) {
-                friend_name = spliceName(line);
-                friend_id = spliceID(line);
-                friend_clearance_level = spliceClearanceLevel(line);
-                tags = this.spliceTags(line);
-                contact_list.add(new Friend(friend_name, new ID(friend_id), friend_clearance_level, tags));
+                    if(!line.equals(System.lineSeparator())){
+                    System.out.println("Line is: "+ line);
+                    friend_name = spliceName("Line Shows: "+line);
+                    friend_id = spliceID(line);
+                    friend_clearance_level = spliceClearanceLevel(line);
+                    tags = this.spliceTags(line);
+                    contact_list.add(new Friend(friend_name, new ID(friend_id), friend_clearance_level, tags));
+                }
             }
             br.close();
         } catch (IOException ex) {
@@ -87,9 +90,10 @@ public class User {
             String line = null;
             try {
                 while ((line = br.readLine())!=null) {
-                    blocked_list.add(new ID(spliceID(line)));
+                    if(!line.equals(System.lineSeparator()))
+                        blocked_list.add(new ID(spliceID(line)));
                 }
-                System.out.println(blocked_list.toString());
+                System.out.println("Blocked List: "+blocked_list.toString());
                 br.close();
             } catch (IOException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,19 +102,19 @@ public class User {
     
     private String spliceName(String friendLine){
         String[] name = friendLine.split("&");
-        System.out.println("Friend Name: "+name[1]);        
+        //System.out.println("Friend Name: "+name[1]);        
         return name[1];
     }
     
     private int spliceID(String friendLine){
         String[] id = friendLine.split("@");
-        System.out.println("ID: "+ Integer.parseInt(id[1]));
+        //System.out.println("ID: "+ Integer.parseInt(id[1]));
         return Integer.parseInt(id[1]);
     }
     
     private int spliceClearanceLevel(String friendLine){
         String[] clearance = friendLine.split("%");
-        System.out.println("Friend Clearance Level: "+ Integer.parseInt(clearance[1]));
+        //System.out.println("Friend Clearance Level: "+ Integer.parseInt(clearance[1]));
         return Integer.parseInt(clearance[1]);
     }
     
@@ -121,7 +125,7 @@ public class User {
         for(String tag : tagz){
             tags.add(tag);
         }
-        System.out.println("Friend Tags: "+ tags.toString());
+        //System.out.println("Friend Tags: "+ tags.toString());
         return (ArrayList<String>)tags.clone();
     }
     
@@ -155,21 +159,27 @@ public class User {
     public void acceptFriendRequest(){    
     }
     
+    //Check all methods inside for completion.
     public void blockContact(ID blocked_request_id){
-        if(!checkBlockedList(blocked_request_id))
-            System.out.println("Friend Request sent");
+        if(!checkBlockedList(blocked_request_id)){
+            this.removeFromFriendsList(blocked_request_id);
+            this.addToBlockedList(blocked_request_id);
+            this.updateContactList();
+            this.updateBlockedList();
+        }else
+            System.err.println("User is already blocked");
     }
     
     public void addToBlockedList(ID id){
         if(checkFriendsList(id)){
            contact_list.remove(this.searchFriendsList(id)); //WRONG //If the friend does exist then it removes from from contact list as well as blocks them.
            blocked_list.add(id);
-           System.out.println(" in friends list");
+           //System.out.println(" in friends list");
            updateContactList();//update the contact list file
         }
         else{
             blocked_list.add(id);//If friend doesn't exist within friends list then we just block the ID
-            System.out.println("not in friends list");
+            //System.out.println("not in friends list");
         }
            //updateBlockedList();//update the blocked list
     }
@@ -186,13 +196,13 @@ public class User {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
-        printWriter.println(blockedString);
+        printWriter.print(blockedString);
         printWriter.flush();
         printWriter.close();
     }
   
     public void updateContactList(){//method for updating the contact list
-        System.out.println("updateContactList started");
+        //System.out.println("updateContactList started");
         String contactString = "";
 
         for (Friend friend : contact_list)
@@ -205,19 +215,15 @@ public class User {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
-        printWriter.println(contactString);  
+        printWriter.print(contactString);  
         printWriter.flush();
         printWriter.close();
     } 
     
     public void removeFromFriendsList(ID id){
         Friend temp; 
-        if((temp = searchFriendsList(id))== null){
-            contact_list.remove(temp);
-        }
-        else{
-            System.err.println("No Friend Found");
-        }
+        temp = searchFriendsList(id);
+        contact_list.remove(temp);
     }
     
     public Friend searchFriendsList(ID id){
