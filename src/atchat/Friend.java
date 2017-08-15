@@ -101,4 +101,8 @@ public class Friend implements Cloneable{
         contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"% "+"!"+tagsToString()+"!";
         return contactBio;        
     }
+    
+    public String simpleToString(){
+        return getName() + " " + ID.getIDNumber();
+    }
 }

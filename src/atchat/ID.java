@@ -30,5 +30,10 @@ public class ID {
         ID id = new ID(getIDNumber());
         return id;
     }
+    
+    @Override
+    public String toString(){
+        return "@"+String.valueOf(getIDNumber())+"@";
+    }
 }
 
