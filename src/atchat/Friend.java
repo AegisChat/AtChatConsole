@@ -6,33 +6,35 @@
 package atchat;
 
 import java.util.ArrayList;
-
+import java.util.UUID;
 /**
  *
  * @author Avi
  */
 public class Friend implements Cloneable{
     
-    private ID ID;
+    private UUID ID;
     private int clearance_level;
     private String name;
     private int location;
     private ArrayList<String> tags;
     private ArrayList<Conversation> conversation;
     private int gender;
-
-    public Friend(String friend_name, ID friend_id, int friend_clearance_level, ArrayList<String> tags){
+    
+    public Friend(String friend_name, UUID friend_id, int friend_clearance_level, ArrayList<String> tags){
         name = friend_name;
         ID = friend_id;
         clearance_level = friend_clearance_level;
         this.tags = (ArrayList<String>)tags.clone();
     }
-    public ID getID() {
-        return ID.clone();
+    
+    
+    public UUID getID() {
+        return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = new ID(ID);
+    public void setID(UUID ID) {
+        this.ID = ID;
     }
     public void setGender(){
     this.gender=gender;
@@ -98,11 +100,11 @@ public class Friend implements Cloneable{
     @Override
     public String toString(){//Convert friend bio into string
         String contactBio = null;
-        contactBio = "&"+getName()+"& "+"@"+ID.getIDNumber()+"@ "+"%"+getGender()+"% "+"!"+tagsToString()+"!";
+        contactBio = "&"+getName()+"& "+"@"+ID.toString()+"@ "+"%"+getGender()+"% "+"!"+tagsToString()+"!";
         return contactBio;        
     }
     
     public String simpleToString(){
-        return getName() + " " + ID.getIDNumber();
+        return getName() + " " + ID.toString();
     }
 }

@@ -5,6 +5,7 @@
  */
 package atchat;
 import java.time.Instant;
+import java.util.UUID;
 /**
  *
  * @author Avi
@@ -12,9 +13,9 @@ import java.time.Instant;
 public abstract class Message {
     protected Instant time_created;
     protected String content;
-    protected ID recipient;
+    protected UUID recipient;
     
-    public Message(String message, ID recipient){
+    public Message(String message, UUID recipient){
         time_created = Instant.now();
         content = message;
         this.recipient = recipient;

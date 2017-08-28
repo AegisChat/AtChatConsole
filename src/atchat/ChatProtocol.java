@@ -5,6 +5,7 @@
  */
 package atchat;
 
+import java.util.UUID;
 /**
  *
  * @author Avi
@@ -12,9 +13,13 @@ package atchat;
 public class ChatProtocol implements ChatProtocolInterface{
     
     public String ProccessOutput(String message){//get rid of this maybe
+        String messageSplit[] = message.split(" ");
+        String content = messageSplit[1];
+        String protocol = messageSplit[0];
         String output = null;
-        switch(message){
-            case "/000/": 
+        switch(protocol){
+            case "/000/":
+                System.out.println(content);
                 break; //message person
             case "/001/": 
                 break; //find person
@@ -26,7 +31,10 @@ public class ChatProtocol implements ChatProtocolInterface{
             case "/004/": 
                 break; //accept friend request
             case "/005/": 
-                break; //decline friend request   
+                break; //decline friend request
+            case "/006/":
+                
+                break;
         }    
         return output;
     }
@@ -52,9 +60,9 @@ public class ChatProtocol implements ChatProtocolInterface{
     }
     
     @Override
-    public String sendFriendRequestProtocol(ID id){
+    public String sendFriendRequestProtocol(UUID id){
         User user = User.getInstance();
-        System.out.println("/003/ " + user.getID().getIDNumber()+ " " +String.valueOf(id.getIDNumber()));
-        return "/003/ " + user.getID()+ " " +String.valueOf(id.getIDNumber());
+        System.out.println("/003/ " + user.getID().toString()+ " " +String.valueOf(id.toString()));
+        return "/003/ " + user.getID()+ " " +String.valueOf(id.toString());
     }
 }

@@ -5,6 +5,8 @@
  */
 package atchat;
 
+import java.util.UUID;
+
 /**
  *
  * @author Avi
@@ -12,10 +14,10 @@ package atchat;
 public class User_Text_Message extends Message{
     private boolean viewed;
     private boolean delivered;
-    private ID recipient;
+    private UUID recipient;
     
-    public User_Text_Message(String message, ID recipient){
-        super(message, recipient.clone());
+    public User_Text_Message(String message, UUID recipient){
+        super(message, recipient);
         viewed = false;
         delivered = false;
     }

@@ -8,7 +8,7 @@ package atchat;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.UUID;
 /**
  *
  * @author Avi
@@ -36,12 +36,12 @@ public class AtChat {
         User n = User.getInstance();
         User_Text_Message m = new User_Text_Message("Hello", n.getID());
         m.displayTime();
-        ArrayList<Friend> foo;
-        foo = n.getContactList();
-        Friend goo = foo.get(0);
-        ID id = goo.getID();
-        n.blockContact(id);
-        
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add("food");
+        //n.addFriend("Rem", UUID.randomUUID(), 0, tags);
+        //n.addFriend("Ram", UUID.randomUUID(), 0, tags);
+        //n.removeFromFriendsList(UUID.fromString("2f34628e-427b-4245-b18c-09ef36d56564"));
+        System.out.println(n.searchFriendsList(UUID.fromString("d32b6748-bf75-41f9-af59-904386fba72d")).simpleToString());
         }catch(IOException e){
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@
  */
 package atchat;
 
+import java.util.UUID;
 /**
  *
  * @author Avi
@@ -12,5 +13,5 @@ package atchat;
 public interface ChatProtocolInterface {
     public abstract void ProccessInput(String message);
     public abstract String ProccessOutput(String message); 
-    public String sendFriendRequestProtocol(ID id);
+    public String sendFriendRequestProtocol(UUID id);
 }
