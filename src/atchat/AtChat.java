@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+
+
 /**
  *
  * @author Avi
@@ -19,6 +21,9 @@ public class AtChat {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Messanger messanger;
+        
+        messanger = Messanger.getInstance();
         try{
             File friends_list_file = new File("friends_list.txt");
             File blocked_list_file = new File("blocked_list.txt");
@@ -33,15 +38,14 @@ public class AtChat {
                 System.out.println("Blocked list file already exit");
             }
             
-        User n = User.getInstance();
-        User_Text_Message m = new User_Text_Message("Hello", n.getID());
-        m.displayTime();
-        ArrayList<String> tags = new ArrayList<String>();
-        tags.add("food");
-        //n.addFriend("Rem", UUID.randomUUID(), 0, tags);
-        //n.addFriend("Ram", UUID.randomUUID(), 0, tags);
-        //n.removeFromFriendsList(UUID.fromString("2f34628e-427b-4245-b18c-09ef36d56564"));
-        System.out.println(n.searchFriendsList(UUID.fromString("d32b6748-bf75-41f9-af59-904386fba72d")).simpleToString());
+            User n = User.getInstance();
+            User_Text_Message m = new User_Text_Message("Hello", n.getID());
+            m.displayTime();
+            ArrayList<String> tags = new ArrayList<String>();
+            tags.add("food");
+            //n.addFriend("Rem", UUID.randomUUID(), 0, tags);
+            //n.addFriend("Ram", UUID.randomUUID(), 0, tags);
+        
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -51,8 +55,8 @@ public class AtChat {
 
     /*TO-DO:
 User:
-        - Add a friend to the friends list
-        - Send a friend request
+        - Add a friend to the friends list - finished
+        - Send a friend request 
         - Have friend request accepted
         - Accept a friend request
 Network: 

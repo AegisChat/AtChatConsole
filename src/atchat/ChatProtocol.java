@@ -9,10 +9,16 @@ import java.util.UUID;
 /**
  *
  * @author Avi
+ * Relative to User using device
  */
 public class ChatProtocol implements ChatProtocolInterface{
     
-    public String ProccessOutput(String message){//get rid of this maybe
+    private static Messanger messanger;
+    private User user;
+    
+    public void ProccessOutput(String message){//get rid of this maybe
+        user = User.getInstance();
+        messanger = Messanger.getInstance();
         String messageSplit[] = message.split(" ");
         String content = messageSplit[1];
         String protocol = messageSplit[0];
@@ -26,21 +32,24 @@ public class ChatProtocol implements ChatProtocolInterface{
             case "/002/": 
                 break; //person found
             case "/003/": 
-                output = message;
+                messanger.sendMessage("/003/ "+ "content" );
                 break; //send friend request
             case "/004/": 
                 break; //accept friend request
             case "/005/": 
                 break; //decline friend request
             case "/006/":
-                
+                System.out.println("SHOULD NOT GET HERE: Accepted Friend Request");
+                break;//Accepted Friend Request
+            case "/007":
                 break;
         }    
-        return output;
     }
     
     @Override
     public void ProccessInput(String message){
+        user = User.getInstance();
+        messanger = Messanger.getInstance();
         String[] spliceCommandCode = message.split(" ");
         String commandCode = spliceCommandCode[0];
         switch(commandCode){
@@ -55,14 +64,12 @@ public class ChatProtocol implements ChatProtocolInterface{
             case "/004/": 
             break; //accept friend request
             case "/005/": 
-            break; //decline friend request   
+            break; //decline friend request 
+            case "/006/":
+                //ADD USER TO FRIENDSLIST
+                break;//Accepted Friend Request
+            case "/007":
+                break;
         }        
-    }
-    
-    @Override
-    public String sendFriendRequestProtocol(UUID id){
-        User user = User.getInstance();
-        System.out.println("/003/ " + user.getID().toString()+ " " +String.valueOf(id.toString()));
-        return "/003/ " + user.getID()+ " " +String.valueOf(id.toString());
     }
 }

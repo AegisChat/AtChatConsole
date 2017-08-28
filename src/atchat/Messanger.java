@@ -16,8 +16,10 @@ public class Messanger extends Thread{
     private PrintWriter write;
     private BufferedReader read;
     private static Messanger instance;
+    private ChatProtocol chat;
     
     private Messanger(){
+        chat = new ChatProtocol();
         instance = null;
         hostName = "localhost";
         portNumber = 6688;
@@ -50,7 +52,7 @@ public class Messanger extends Thread{
     }
     
     public void sendMessage(String message){
-        ChatProtocol chat = new ChatProtocol();
-        write.println(chat.ProccessOutput(message));
+        write.println(message);
+        write.flush();
     }
 }

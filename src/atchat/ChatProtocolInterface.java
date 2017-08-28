@@ -12,6 +12,5 @@ import java.util.UUID;
  */
 public interface ChatProtocolInterface {
     public abstract void ProccessInput(String message);
-    public abstract String ProccessOutput(String message); 
-    public String sendFriendRequestProtocol(UUID id);
+    public abstract void ProccessOutput(String message); 
 }

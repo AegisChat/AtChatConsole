@@ -33,9 +33,10 @@ public class User {
     private FileReader friends_list_file_reader;
     private FileReader blocked_list_file_reader;
     private static User instance = null;
+    private ChatProtocol chat;
     
     private User(){
-        ID = UUID.randomUUID(); //TEMPORARY
+        ID = UUID.randomUUID();
         name = "";
         gender = 1;
         location = 100;
@@ -75,7 +76,7 @@ public class User {
                     friend_id = UUID.fromString(spliceID(line));
                     friend_clearance_level = spliceClearanceLevel(line);
                     tags = this.spliceTags(line);
-                    friends_list.add(new Friend(friend_name, ID, friend_clearance_level, tags));
+                    friends_list.add(new Friend(friend_name, friend_id, friend_clearance_level, tags));
                 }
             }
             br.close();
@@ -148,8 +149,9 @@ public class User {
     }
     //Incomplete
     public void sendFriendRequest(UUID id){
+        chat = new ChatProtocol();
         if(!checkFriendsList(id))
-            System.out.println("Friend Request sent");
+            chat.ProccessOutput("/003/ " + getID() + " "+ id);
     }
     //Incomplete
     public void acceptFriendRequest(){    

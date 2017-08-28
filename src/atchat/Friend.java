@@ -93,7 +93,6 @@ public class Friend implements Cloneable{
             ans = ans + tag + " ";
         }
         ans = ans.trim();
-        System.out.println("tags: "+ ans);
         return ans;
     }
     
