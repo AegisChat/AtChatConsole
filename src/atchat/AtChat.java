@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.net.Socket;
 
 
 /**
@@ -22,7 +23,7 @@ public class AtChat {
      */
     public static void main(String[] args) {
         Messanger messanger;
-        
+        Socket socket;
         messanger = Messanger.getInstance();
         try{
             File friends_list_file = new File("friends_list.txt");
@@ -37,7 +38,6 @@ public class AtChat {
             }else{
                 System.out.println("Blocked list file already exit");
             }
-            
             User n = User.getInstance();
             User_Text_Message m = new User_Text_Message("Hello", n.getID());
             m.displayTime();
@@ -45,7 +45,7 @@ public class AtChat {
             tags.add("food");
             //n.addFriend("Rem", UUID.randomUUID(), 0, tags);
             //n.addFriend("Ram", UUID.randomUUID(), 0, tags);
-        
+            messanger.sendMessage("Hello!!!!!!!!!!!");
         }catch(IOException e){
             e.printStackTrace();
         }

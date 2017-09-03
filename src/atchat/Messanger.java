@@ -22,7 +22,7 @@ public class Messanger extends Thread{
         chat = new ChatProtocol();
         instance = null;
         hostName = "localhost";
-        portNumber = 6688;
+        portNumber = 18888;
         try{
         chatSocket = new Socket(hostName, portNumber);
         write = new PrintWriter(chatSocket.getOutputStream(), true);
