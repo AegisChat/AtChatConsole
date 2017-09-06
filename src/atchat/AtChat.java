@@ -25,6 +25,7 @@ public class AtChat {
         Messanger messanger;
         Socket socket;
         messanger = Messanger.getInstance();
+        messanger.run();
         try{
             File friends_list_file = new File("friends_list.txt");
             File blocked_list_file = new File("blocked_list.txt");
